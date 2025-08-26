@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function login(): View
     {
-        return View('admin.login');
+        return View('login');
     }
 
     public function authenticate(Request $request): RedirectResponse
@@ -22,15 +22,19 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.'
+            ])->onlyInput('email');
+        }
+
+        $request->session()->regenerate();
             
+        if ($request->is('admin/*')) {
             return redirect()->intended('admin/dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.'
-        ])->onlyInput('email');
+        return redirect()->intended('/');
     }
 
     /**
@@ -43,7 +47,11 @@ class LoginController extends Controller
         $request->session()->invalidate();
     
         $request->session()->regenerateToken();
-    
-        return redirect('/admin/login');
+        
+        if ($request->is('admin/*')) {
+            return redirect('/admin/login');
+        }
+
+        return redirect('/login');
     }
 }

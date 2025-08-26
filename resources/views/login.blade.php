@@ -8,7 +8,7 @@
 @section('content')
     <div class="flex justify-center items-center h-screen">
         <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-            <form method="POST" action="/admin/authenticate">
+            <form method="POST" action="{{ request()->is('admin/*')? '/admin/authenticate' : '/authenticate' }} ">
                 @csrf
                 <div class="max-w-sm">
                     <label for="email-label" class="block text-sm font-medium mb-2 dark:text-white">Email</label>

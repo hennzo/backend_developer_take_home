@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +18,9 @@ use App\Http\Controllers\Admin;
 */
 
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [Admin\LoginController::class, 'login']);
-    Route::get('/logout',[Admin\LoginController::class, 'logout']);
-    Route::post('/authenticate', [Admin\LoginController::class, 'authenticate']);
+    Route::get('/login', [LoginController::class, 'login']);
+    Route::get('/logout',[LoginController::class, 'logout']);
+    Route::post('/authenticate', [LoginController::class, 'authenticate']);
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard',[Admin\DashboardController::class, 'index']);
 
@@ -43,4 +46,12 @@ Route::prefix('admin')->group(function () {
             Route::get('/{product}',[Admin\PricingController::class, 'show']);
         });
     });
+});
+
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/authenticate', [LoginController::class, 'authenticate']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/product/{product}', [SubscriptionController::class, 'index']);
 });
