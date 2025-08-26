@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PricingOption;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class PricingOptionFactory extends Factory
         return [
             'name' => fake()->randomElements(['Monthly', 'Yearly']),
             'description' => fake()->text(),
-            'duration' =>fake()->random_int(7, 365)
+            'duration' => fake()->randomElement(PricingOption::DURATION)
         ];
     }
 }

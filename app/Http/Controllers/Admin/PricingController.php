@@ -5,22 +5,22 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\PricingOption;
 use Illuminate\Http\RedirectResponse;
 
-class ProductController extends Controller
+class PricingController extends Controller
 {
     public function index(): View
     {
-        $products = Product::all();
-        
-        return View('admin.product.index', compact('products'));
+        $pricings = PricingOption::all();
+
+        return View('admin.pricing.index', compact('pricings'));
     }
 
 
     public function create(): View
     {
-        return View('admin.product.create');
+        return View('admin.pricing.create');
     }
     
 
@@ -29,12 +29,13 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => ['required', 'min:3'],
             'description' => ['required', 'min:3'],
+            'duration' => ['required', 'numeric', 'between:7,365'],
         ]);
 
-        $product = new Product($data);
-        $product->save();
+        $pricing = new PricingOption($data);
+        $pricing->save();
 
-        return redirect('admin/product')
-            ->with('success', 'Product successfully created!');;
+        return redirect('admin/pricing')
+            ->with('success', 'Pricing successfully created!');;
     }
 }

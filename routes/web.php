@@ -30,5 +30,12 @@ Route::prefix('admin')->group(function () {
             Route::post('/',[Admin\ProductController::class, 'store']);
             Route::get('/{product}',[Admin\ProductController::class, 'show']);
         });
+
+        Route::prefix('pricing')->group(function () {
+            Route::get('/',[Admin\PricingController::class, 'index']);
+            Route::get('/create',[Admin\PricingController::class, 'create']);
+            Route::post('/',[Admin\PricingController::class, 'store']);
+            Route::get('/{product}',[Admin\PricingController::class, 'show']);
+        });
     });
 });

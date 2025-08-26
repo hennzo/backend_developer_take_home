@@ -9,6 +9,8 @@ class PricingOption extends Model
 {
     use HasFactory;
 
+    public const DURATION = [7, 30, 120, 180, 365];
+
     /**
      * The attributes that are mass assignable.
      *

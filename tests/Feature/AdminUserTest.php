@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\PricingOption;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -83,4 +85,23 @@ class AdminUserTest extends TestCase
 
         $this->assertDatabaseHas('products', $data);
     }
+
+    public function test_that_admin_can_create_new_pricing_option(): void
+    {
+        $admin = self::createUser();
+
+        $data = [
+            'name' => fake()->randomElement(['Monthly', 'Yearly']),
+            'description' => fake()->text(),
+            'duration' => fake()->randomElement(PricingOption::DURATION)
+        ];
+
+        $response = $this->actingAs($admin, 'web')
+            ->post('/admin/pricing', $data);
+
+        $this->assertDatabaseHas('pricing_options', $data);
+    }
+
+
+    
 }
