@@ -18,7 +18,7 @@ class PricingOptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->randomElements(['Monthly', 'Yearly']),
+            'name' => fake()->randomElement(['Monthly', 'Yearly']),
             'description' => fake()->text(),
             'duration' => fake()->randomElement(PricingOption::DURATION)
         ];

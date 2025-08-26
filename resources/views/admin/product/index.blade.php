@@ -31,14 +31,14 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ $product->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ $product->created_at }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                                @forelse ($product->pricing() as $pricing)
-                                    <p>{{ $pricing->name }}</p>
+                                @forelse ($product->pricing as $pricing)
+                                    <p>{{ $pricing->name }} -> ${{ $pricing->pivot->amount }}</p>
                                 @empty
                                     No linked pricing
                                 @endforelse
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                <a href="/admin/product/{{ $product->id }}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">
+                                <a href="/admin/product/{{ $product->id }}/pricing" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">
                                     Add new Pricing
                                 </a>
                             </td>

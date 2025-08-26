@@ -28,7 +28,12 @@ Route::prefix('admin')->group(function () {
             Route::get('/',[Admin\ProductController::class, 'index']);
             Route::get('/create',[Admin\ProductController::class, 'create']);
             Route::post('/',[Admin\ProductController::class, 'store']);
-            Route::get('/{product}',[Admin\ProductController::class, 'show']);
+
+            Route::prefix('{product}')->group(function () {
+                // Route::get('/',[Admin\ProductController::class, 'show']);
+                Route::get('/pricing',[Admin\ProductPricingController::class, 'create']);
+                Route::post('/pricing',[Admin\ProductPricingController::class, 'store']);
+            });
         });
 
         Route::prefix('pricing')->group(function () {

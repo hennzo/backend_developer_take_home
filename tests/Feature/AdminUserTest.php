@@ -103,5 +103,22 @@ class AdminUserTest extends TestCase
     }
 
 
-    
+    public function test_that_admin_can_add_pricing_to_product(): void
+    {
+        $admin = self::createUser();
+
+        $pricingOption = PricingOption::factory()->create([]);
+        $product = Product::factory()->create([]);
+
+        $data = [
+            'product_id' => $product->id,
+            'pricing_option_id' => $pricingOption->id,
+            'amount' => fake()->randomFloat(2),
+        ];
+
+        $response = $this->actingAs($admin, 'web')
+            ->post("/admin/product/{$product->id}/pricing", $data);
+
+        $this->assertDatabaseHas('product_pricings', $data);
+    }
 }

@@ -10,7 +10,7 @@
             <div class="w-full h-max rounded p-3">
                 <ul class="flex flex-col gap-0.5 min-w-60">
                     <li class="flex items-center py-1.5 px-2.5 rounded-md align-middle select-none font-sans transition-all duration-300 ease-in aria-disabled:opacity-50 aria-disabled:pointer-events-none {{request()->is('admin/dashboard')? 'bg-white text-black': 'bg-transparent text-white'}} hover:text-black dark:hover:text-white hover:bg-slate-200 focus:bg-slate-200 focus:text-black dark:focus:text-white dark:data-[selected=true]:text-white dark:bg-opacity-70">
-                        <a href="/admin" class="flex items-center">
+                        <a href="/admin/dashboard" class="flex items-center">
                             Dasbboard
                         </a>
                     </li>
