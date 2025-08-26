@@ -22,20 +22,20 @@ class AdminUserTest extends TestCase
     
     public function test_that_admin_user_can_login_with_valid_credentials(): void
     {
-        $user = self::createUser();
+        $admin = self::createUser();
 
         $response = $this->post('/admin/authenticate', [
-            'email' => $user->email,
+            'email' => $admin->email,
             'password' => 'password'
         ]);
 
         $response->assertRedirect('admin/dashboard');
-        $this->assertAuthenticatedAs($user);
+        $this->assertAuthenticatedAs($admin);
     }
 
     public function test_that_admin_can_create_another_admin_user(): void
     {
-        $user = self::createUser();
+        $admin = self::createUser();
 
         $data = [
                 'firstname' => fake()->firstName(),
@@ -45,9 +45,27 @@ class AdminUserTest extends TestCase
                 'is_admin' => true
         ];
 
-        $response = $this->actingAs($user, 'web')
+        $response = $this->actingAs($admin, 'web')
             ->post('/admin/user/create', $data);
 
         $this->assertDatabaseHas('users', $data);
+    }
+
+    public function test_that_creating_user_with_missing_field_fail(): void
+    {
+        $admin = self::createUser();
+
+        $data = [
+                'firstname' => '',
+                'lastname' => fake()->lastName(),
+                'email' => fake()->unique()->safeEmail(),
+                'password' => Hash::make('password'),
+                'is_admin' => true
+        ];
+
+        $response = $this->actingAs($admin, 'web')
+            ->post('/admin/user/create', $data);
+
+        $this->assertDatabaseMissing('users', $data);
     }
 }

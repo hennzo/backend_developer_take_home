@@ -20,6 +20,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/authenticate', [Admin\LoginController::class, 'authenticate']);
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard',[Admin\DashboardController::class, 'index']);
+
+        Route::get('/user/create',[Admin\UserController::class, 'create']);
+        Route::post('/user/create',[Admin\UserController::class, 'store']);
+
         
     });
 });
