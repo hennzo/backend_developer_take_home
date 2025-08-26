@@ -38,11 +38,11 @@ class AdminUserTest extends TestCase
         $admin = self::createUser();
 
         $data = [
-                'firstname' => fake()->firstName(),
-                'lastname' => fake()->lastName(),
-                'email' => fake()->unique()->safeEmail(),
-                'password' => Hash::make('password'),
-                'is_admin' => true
+            'firstname' => fake()->firstName(),
+            'lastname' => fake()->lastName(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => Hash::make('password'),
+            'is_admin' => true
         ];
 
         $response = $this->actingAs($admin, 'web')
@@ -56,16 +56,31 @@ class AdminUserTest extends TestCase
         $admin = self::createUser();
 
         $data = [
-                'firstname' => '',
-                'lastname' => fake()->lastName(),
-                'email' => fake()->unique()->safeEmail(),
-                'password' => Hash::make('password'),
-                'is_admin' => true
+            'firstname' => '',
+            'lastname' => fake()->lastName(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => Hash::make('password'),
+            'is_admin' => true
         ];
 
         $response = $this->actingAs($admin, 'web')
             ->post('/admin/user/create', $data);
 
         $this->assertDatabaseMissing('users', $data);
+    }
+
+    public function test_that_admin_can_create_new_product(): void
+    {
+        $admin = self::createUser();
+
+        $data = [
+            'name' => fake()->name(),
+            'description' => fake()->text(),
+        ];
+
+        $response = $this->actingAs($admin, 'web')
+            ->post('/admin/product', $data);
+
+        $this->assertDatabaseHas('products', $data);
     }
 }

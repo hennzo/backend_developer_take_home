@@ -22,6 +22,7 @@
 
             <main class="flex-1 p-4">
                  <div class="w-full">
+                    <h1 class="py-5">@yield('title')</h1>
                     @if (session('success') || session('echec'))
                         <div class="space-y-5">
                             @if (session('success'))

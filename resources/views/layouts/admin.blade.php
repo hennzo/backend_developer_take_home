@@ -20,13 +20,13 @@
                         </a>
                     </li>
                     
-                    <li class="flex items-center py-1.5 px-2.5 rounded-md align-middle select-none font-sans transition-all duration-300 ease-in aria-disabled:opacity-50 aria-disabled:pointer-events-none {{request()->is('admin/product/create')? 'bg-white text-black': 'bg-transparent text-white'}} hover:text-black dark:hover:text-white hover:bg-slate-200 focus:bg-slate-200 focus:text-black dark:focus:text-white dark:data-[selected=true]:text-white dark:bg-opacity-70">
-                        <a href="/admin/product/create" class="flex items-center">
-                            Add new product
+                    <li class="flex items-center py-1.5 px-2.5 rounded-md align-middle select-none font-sans transition-all duration-300 ease-in aria-disabled:opacity-50 aria-disabled:pointer-events-none {{request()->is('admin/product') || request()->is('admin/product/*')? 'bg-white text-black': 'bg-transparent text-white'}} hover:text-black dark:hover:text-white hover:bg-slate-200 focus:bg-slate-200 focus:text-black dark:focus:text-white dark:data-[selected=true]:text-white dark:bg-opacity-70">
+                        <a href="/admin/product" class="flex items-center">
+                            Product
                         </a>
                     </li>
-                    <li class="flex items-center py-1.5 px-2.5 rounded-md align-middle select-none font-sans transition-all duration-300 ease-in aria-disabled:opacity-50 aria-disabled:pointer-events-none {{request()->is('admin/product/pricing/create')? 'bg-white text-black': 'bg-transparent text-white'}} hover:text-black dark:hover:text-white hover:bg-slate-200 focus:bg-slate-200 focus:text-black dark:focus:text-white dark:data-[selected=true]:text-white dark:bg-opacity-70">
-                        <a href="/admin/product/pricing/create" class="flex items-center">
+                    <li class="flex items-center py-1.5 px-2.5 rounded-md align-middle select-none font-sans transition-all duration-300 ease-in aria-disabled:opacity-50 aria-disabled:pointer-events-none {{request()->is('admin/pricing') || request()->is('admin/pricing/*')? 'bg-white text-black': 'bg-transparent text-white'}} hover:text-black dark:hover:text-white hover:bg-slate-200 focus:bg-slate-200 focus:text-black dark:focus:text-white dark:data-[selected=true]:text-white dark:bg-opacity-70">
+                        <a href="/admin/pricing/create" class="flex items-center">
                             Add new pricing option
                         </a>
                     </li>

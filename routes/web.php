@@ -24,6 +24,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/user/create',[Admin\UserController::class, 'create']);
         Route::post('/user/create',[Admin\UserController::class, 'store']);
 
-        
+        Route::prefix('product')->group(function () {
+            Route::get('/',[Admin\ProductController::class, 'index']);
+            Route::get('/create',[Admin\ProductController::class, 'create']);
+            Route::post('/',[Admin\ProductController::class, 'store']);
+            Route::get('/{product}',[Admin\ProductController::class, 'show']);
+        });
     });
 });
