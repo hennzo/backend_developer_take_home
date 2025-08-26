@@ -39,14 +39,34 @@ class SubscriptionController extends Controller
         $subscription->expiration_date = Carbon::now()->addDays($productPricing->pricingOption->duration);
         $subscription->save();
 
-        return redirect('admin/product')
-            ->with('success', 'Product successfully created!');;
+        return redirect('/')
+            ->with('success', 'Subscription successfully created!');
     }
 
     public function listing(Request $request): View
     {
-        $subscriptions = $request->user()->subscriptions()->get();
+        $user = $request->user();
+        $subscriptions = $user->subscriptions()
+            ->where('user_id', $user->id)
+            ->where('expiration_date', '>', Carbon::now())
+            ->get();
         
         return View('user.subscriptions', compact('subscriptions'));
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        
+        $user->subscriptions()
+            ->where([
+                'user_id' => $user->id,
+                'product_pricing_id' => $request->input('product_pricing_id'),
+            ])->update([
+                'status' => UserSubscription::CANCEL,
+            ]);
+        
+        return redirect('/subscriptions')
+            ->with('success', 'Subscription successfully canceled!');;
     }
 }

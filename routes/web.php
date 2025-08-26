@@ -19,8 +19,8 @@ use App\Http\Controllers\SubscriptionController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [LoginController::class, 'login']);
-    Route::get('/logout',[LoginController::class, 'logout']);
     Route::post('/authenticate', [LoginController::class, 'authenticate']);
+    Route::get('/logout',[LoginController::class, 'logout']);
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard',[Admin\DashboardController::class, 'index']);
 
@@ -50,10 +50,12 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/authenticate', [LoginController::class, 'authenticate']);
+Route::get('/logout',[LoginController::class, 'logout']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/product/{product}', [SubscriptionController::class, 'index']);
     Route::post('/product/{product}', [SubscriptionController::class, 'store']);
     Route::get('/subscriptions', [SubscriptionController::class, 'listing']);
+    Route::post('/subscriptions/cancel', [SubscriptionController::class, 'update']);
 });

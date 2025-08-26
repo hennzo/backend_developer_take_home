@@ -94,5 +94,38 @@ class UserTest extends TestCase
         }       
     }
 
+    public function test_that_user_can_cancel_a_subscription(): void
+    {
+        $user = self::createUser();
+        $subscriptions = self::createUserSubscription(3, $user);
+
+        $selectedSubscription = $subscriptions->random();
+        $subscriptions = $subscriptions->reject(function (UserSubscription $subscription) use ($selectedSubscription) {
+            return $subscription->id === $selectedSubscription->id;
+        });
+        
+        $data = [
+            'product_pricing_id' => $selectedSubscription->productPricing->id,
+        ];
+
+        $response = $this->actingAs($user, 'web')
+            ->post("/subscriptions/cancel", $data);
+
+        foreach ($subscriptions as $subscription) {
+            $this->assertDatabaseHas('user_subscriptions', [
+                'user_id' => $subscription->user->id,
+                'product_pricing_id' => $subscription->productPricing->id,
+                'status' => $subscription->status,
+            ]);
+        }
+
+        $this->assertDatabaseHas('user_subscriptions', [
+            'user_id' => $selectedSubscription->user->id,
+            'product_pricing_id' => $selectedSubscription->productPricing->id,
+            'status' => UserSubscription::CANCEL,
+        ]);
+
+        $response->assertRedirect('/subscriptions');
+    }
     
 }

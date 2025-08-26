@@ -31,9 +31,15 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ $subscription->subscription_date }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ $subscription->expiration_date }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                <a href="/subscriptions/cancel/{{ $subscription->user->id }}/{{ $subscription->productPricing->id }}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">
-                                    Cancel
-                                </a>
+                                @if ($subscription->isActive() )
+                                    <form method="POST" action="/subscriptions/cancel">
+                                        @csrf
+                                        <input type="hidden" name="product_pricing_id" value="{{ $subscription->productPricing->id }}"/>
+                                        <button type="submit" class="py-3 px-4 mt-5 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-red-900 text-white hover:bg-red-600 focus:outline-hidden focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                             </tr>
                         @endforeach

@@ -57,4 +57,9 @@ class UserSubscription extends Model
     {
         return $this->belongsTo(ProductPricing::class, 'product_pricing_id');
     }
+
+    public function isActive(): bool
+    {
+        return $this->status === self::PENDING || $this->status === self::ACTIVE;
+    }
 }
