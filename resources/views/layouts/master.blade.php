@@ -22,6 +22,16 @@
 
             <main class="flex-1 p-4">
                  <div class="w-full">
+                    @if (!Auth::check())
+                        <p>
+                            @if (request()->is('admin/*'))
+                                <a href="/login" class=" text-blue-600 hover:text-blue-400">Go to website</a>
+                            @else
+                                <a href="/admin/login" class=" text-blue-600 hover:text-blue-400">Go to admin panel</a>
+                            @endif
+                        </p>
+                    @endif
+
                     @if (session('success') || session('echec'))
                         <div class="space-y-5">
                             @if (session('success'))
