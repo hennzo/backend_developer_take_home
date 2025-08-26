@@ -29,9 +29,11 @@ class UserTest extends TestCase
         return ProductPricing::factory()->create([]);
     }
 
-    public static function createUserSubscription(?int $count): Collection
+    public static function createUserSubscription(?int $count, User $user): Collection
     {
-        return UserSubscription::factory($count)->create([]);
+        return UserSubscription::factory($count)->create([
+            'user_id' => $user->id,
+        ]);
     }
     
     public function test_that_user_can_login_with_valid_credentials(): void
@@ -77,6 +79,19 @@ class UserTest extends TestCase
             'product_pricing_id' => $data['product_pricing_id'],
             'user_id' => $user->id,
         ]);
+    }
+
+    public function test_that_user_can_see_his_subscriptions(): void
+    {
+        $user = self::createUser();
+        $subscriptions = self::createUserSubscription(3, $user);
+
+        $response = $this->actingAs($user, 'web')
+            ->get('/subscriptions');
+
+        foreach ($subscriptions as $subscription) {
+            $response->assertSee($subscription->productPricing->product->name);
+        }       
     }
 
     

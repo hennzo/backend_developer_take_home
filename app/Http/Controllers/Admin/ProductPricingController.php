@@ -37,7 +37,7 @@ class ProductPricingController extends Controller
             'pricing_option_id' => ['required', 'numeric', 'gt:0'],
             'amount' => ['required', 'decimal:2'],
         ]);
-dump($data);
+
         $productPricing = new ProductPricing();
         $productPricing->product_id = $product->id;
         $productPricing->pricing_option_id = $data['pricing_option_id'];

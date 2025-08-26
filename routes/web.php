@@ -55,4 +55,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/product/{product}', [SubscriptionController::class, 'index']);
     Route::post('/product/{product}', [SubscriptionController::class, 'store']);
+    Route::get('/subscriptions', [SubscriptionController::class, 'listing']);
 });

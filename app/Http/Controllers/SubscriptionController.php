@@ -42,4 +42,11 @@ class SubscriptionController extends Controller
         return redirect('admin/product')
             ->with('success', 'Product successfully created!');;
     }
+
+    public function listing(Request $request): View
+    {
+        $subscriptions = $request->user()->subscriptions()->get();
+        
+        return View('user.subscriptions', compact('subscriptions'));
+    }
 }
