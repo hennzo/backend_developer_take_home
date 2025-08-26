@@ -44,8 +44,8 @@ class UserSubscription extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'subscription_date' => 'timestamp',
-        'expiration_date' => 'timestamp'
+        'subscription_date' => 'datetime',
+        'expiration_date' => 'datetime'
     ];
 
     public function user(): BelongsTo

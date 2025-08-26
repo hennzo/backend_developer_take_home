@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_subscriptions', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
             $table->foreignId('product_pricing_id');
             $table->enum('status', ['Pending', 'Active', 'Inactive', 'Cancel'])->default('Pending');
             $table->timestamp('subscription_date');
             $table->timestamp('expiration_date');
-            $table->primary(['user_id', 'product_pricing_id']);
+            $table->unique(['user_id', 'product_pricing_id']);
         });
     }
 

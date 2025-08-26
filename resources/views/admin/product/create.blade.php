@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="/admin/product/create">
+            <form method="POST" action="/admin/product">
                 @csrf
                 <div class="max-w-sm">
                     <label for="name-label" class="block text-sm font-medium mb-2 dark:text-white">Product name</label>
