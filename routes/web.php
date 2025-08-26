@@ -51,6 +51,8 @@ Route::prefix('admin')->group(function () {
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/authenticate', [LoginController::class, 'authenticate']);
 Route::get('/logout',[LoginController::class, 'logout']);
+Route::get('/user/create',[UserController::class, 'create']);
+Route::post('/user/create',[UserController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index']);

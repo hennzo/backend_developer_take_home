@@ -21,6 +21,10 @@
                 <button type="submit" class="py-3 px-4 mt-5 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                     Login
                 </button>
+                <p class="mt-3">
+                    Don't have an account?
+                    <a href="/user/create" class="px-4 text-blue-600 hover:text-blue-400">Register</a>
+                </p>
             </form>
         </div>
     </div>
