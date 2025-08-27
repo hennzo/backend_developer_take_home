@@ -66,6 +66,12 @@ email: admin@example.com
 password: admin
 ```
 
+* Run tests (I forgot to add it yesterday):
+
+```
+php artisan tests
+```
+
 * Run command to automatically cancel all expired subscriptions:
 
 ```
