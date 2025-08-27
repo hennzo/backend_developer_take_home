@@ -74,3 +74,10 @@ php artisan user:cancel-subscriptions
 
 * Lastly, open:
 [Localhost](http://localhost/)
+
+
+
+
+### Database Structure
+
+![20250826_213605](https://github.com/user-attachments/assets/27c1b1af-da32-4a1e-8eac-792800c3a92b)
