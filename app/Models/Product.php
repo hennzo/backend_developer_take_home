@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
@@ -23,5 +24,10 @@ class Product extends Model
     public function pricing(): BelongsToMany
     {
         return $this->BelongsToMany(PricingOption::class, 'product_pricings')->withPivot('amount');
+    }
+
+    public function productPricing(): HasMany
+    {
+        return $this->HasMany(ProductPricing::class, 'product_id', 'id');
     }
 }
